@@ -1,5 +1,5 @@
 # Hellogram
-Hellogram is a social media platform (e.g. Twitter, Facebook)
+Hellogram is a social media platform (e.g. Twitter, Facebook) with a fully-implemented messenger.
 
 This is the full repository of the application
 
