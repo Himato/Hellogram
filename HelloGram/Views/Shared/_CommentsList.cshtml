@@ -1,0 +1,7 @@
+﻿@using HelloGram.Core.ViewModels
+
+
+@foreach (var comment in Model)
+{
+    @Html.Partial("_Comment", (CommentViewModel) comment)
+}

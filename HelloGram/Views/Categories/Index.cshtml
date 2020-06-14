@@ -1,0 +1,67 @@
+﻿@model HelloGram.Core.ViewModels.CategoriesViewModel
+@{
+    ViewBag.Title = "Categories";
+    Layout = "~/Views/Shared/_LoggedLayout.cshtml";
+}
+
+<!-- Header -->
+@Html.Partial("_HomeHeader")
+<!-- Page content -->
+<div class="container-fluid mt--7">
+    @for (var i = 0; i < Model.CategoryList.Count; )
+    {
+        <div class="row@(i >= 3 ? " mt-xl-7 mt-sm-0" : "")">
+            @for (var j = 0; j < 3 && i < Model.CategoryList.Count; j++, i++)
+            {
+                <div id="category-container" class="col-xl-4 mt-xl-0@(i != 0 ? " mt-xs-7" : "") mx-xs-4" data-category-id="@Model.CategoryList[i].Id">
+                    <div class="card shadow">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-3 order-lg-2">
+                                <div class="card-profile-image">
+                                    <a href="@Url.Action("Category", "Categories", new { id = Model.CategoryList[i].Id })">
+                                        <img src="/Content/Images/Categories/@Model.CategoryList[i].Image" class="rounded-circle" alt="Category">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+                            <div class="d-flex justify-content-between">
+                            </div>
+                        </div>
+                        <div class="card-body pt-0 pt-md-4">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="card-profile-stats d-flex justify-content-center mt-md-5">
+                                        <div>
+                                            <span class="heading js-subscribe-number">@Model.CategoryList[i].NumberOfSubscriptions</span>
+                                            <span class="description">Subscribers</span>
+                                        </div>
+                                        <div>
+                                            <span class="heading">@Model.CategoryList[i].NumberOfPosts</span>
+                                            <span class="description">Posts</span>
+                                        </div>
+                                        <div>
+                                            <span class="heading">0</span>
+                                            <span class="description">Comments</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <h3>@Model.CategoryList[i].Name</h3>
+                                <p class="category-description">@Model.CategoryList[i].Description <a class="btn btn-link d-inline p-0" href="@Url.Action("Category", "Categories", new { id = Model.CategoryList[i].Id })">Show Posts</a></p>
+                                <a class="btn @(!Model.CategoryList[i].IsSubscribed ? "btn-primary" : "btn-neutral") btn-rounded js-category-subscribe" href="javascript:void(0);">
+                                    @(!Model.CategoryList[i].IsSubscribed ? "Subscribe" : "Unsubscribe")
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+@section scripts {
+    <script src="/Scripts/loader-categories.js"></script>
+}

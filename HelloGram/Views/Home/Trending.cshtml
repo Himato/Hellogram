@@ -1,0 +1,26 @@
+﻿@model HelloGram.Core.ViewModels.TrendingViewModel
+@{
+    ViewBag.Title = "Trending";
+    Layout = "~/Views/Shared/_LoggedLayout.cshtml";
+}
+
+<!-- Header -->
+@Html.Partial("_HomeHeader")
+<!-- Page Content -->
+<div class="container-fluid mt--7">
+    <div class="col-xl-8 order-xl-1 mb-5 mb-xl-0">
+        <!-- Post -->
+        @foreach (var post in Model.PostViewModels)
+        {
+            @Html.Partial("_Post", post)
+        }
+    </div>
+    @if (!Model.PostViewModels.Any())
+    {
+        <div class="card shadow mb-4">
+            <div class="card-body">
+                <p class="post-text text-center">There is no trending posts right for now.</p>
+            </div>
+        </div>
+    }
+</div>

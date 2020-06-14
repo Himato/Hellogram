@@ -1,0 +1,230 @@
+﻿@model HelloGram.Core.ViewModels.SettingsViewModel
+@{
+    ViewBag.Title = "Settings";
+    Layout = "~/Views/Shared/_LoggedLayout.cshtml";
+}
+
+<!-- Header -->
+<div class="header pb-6 pt-3 pt-lg-6 d-flex align-items-center" style="min-height: 450px;">
+    <!-- Mask -->
+    <span class="mask bg-gradient-default opacity-8"></span>
+    <!-- Header container -->
+    <div class="container-fluid d-flex align-items-center">
+        <div class="row">
+            <div class="col-lg-12 col-md-10">
+                <h1 class="display-2 text-white">Hello, @Model.UserViewModel.Name</h1>
+                <p class="text-white mt-0 mb-4">This is your settings page. You can see and change your settings from here.</p>
+                <a href="@Url.Action("UserProfile", "Users")" class="btn btn-info">View profile</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+    <div class="row">
+    @Html.Partial("_ProfileCard", Model.UserViewModel)
+    <div class="col-xl-8 order-xl-1 mx-xs-4">
+            <div class="card bg-secondary shadow mb-4">
+                <div class="card-header bg-white border-0">
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <h3 class="mb-0">My Account</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    @using (Html.BeginForm("Index", "Settings", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        <h6 class="heading-small text-muted mb-4">User information</h6>
+                        <div class="pl-lg-4">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label">Username</label>
+                                        <input type="text" class="form-control form-control-alternative" placeholder="Username" value="@Model.UserViewModel.Username" disabled="disabled">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label">Email address</label>
+                                        <input type="email" class="form-control form-control-alternative" placeholder="Email Address" value="@Model.UserViewModel.Email" disabled="disabled">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.UserViewModel.Name, new { @class = "form-control-label" })
+                                        @Html.TextBoxFor(m => m.UserViewModel.Name, new { @class = "form-control form-control-alternative", type = "text", placeholder = "Name", value= Model.UserViewModel.Name })
+                                        @Html.ValidationMessageFor(m => m.UserViewModel.Name, "", new { @class = "validation-error text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.UserViewModel.Birthday, new { @class = "form-control-label" })
+                                        @Html.TextBoxFor(m => m.UserViewModel.Birthday, new { @class = "form-control form-control-alternative", type="text", placeholder = "yyyy/mm/dd", value = Model.UserViewModel.Birthday })
+                                        @Html.ValidationMessageFor(m => m.UserViewModel.Birthday, "", new { @class = "validation-error text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="my-4" />
+                        <!-- Address -->
+                        <h6 class="heading-small text-muted mb-4">Contact information</h6>
+                        <div class="pl-lg-4">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.UserViewModel.City, new { @class = "form-control-label" })
+                                        @Html.TextBoxFor(m => m.UserViewModel.City, new { @class = "form-control form-control-alternative", type = "text", placeholder = "New York", value = Model.UserViewModel.City })
+                                        @Html.ValidationMessageFor(m => m.UserViewModel.City, "", new { @class = "validation-error text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.UserViewModel.Country, new { @class = "form-control-label" })
+                                        @Html.TextBoxFor(m => m.UserViewModel.Country, new { @class = "form-control form-control-alternative", type = "text", placeholder = "United States", value = Model.UserViewModel.City })
+                                        @Html.ValidationMessageFor(m => m.UserViewModel.Country, "", new { @class = "validation-error text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.UserViewModel.PhoneNumber, new { @class = "form-control-label" })
+                                        @Html.TextBoxFor(m => m.UserViewModel.PhoneNumber, new { @class = "form-control form-control-alternative", type = "text", placeholder = "+1-202-555-0146", value = Model.UserViewModel.PhoneNumber })
+                                        @Html.ValidationMessageFor(m => m.UserViewModel.PhoneNumber, "", new { @class = "validation-error text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.UserViewModel.FacebookLink, new { @class = "form-control-label" })
+                                        @Html.TextBoxFor(m => m.UserViewModel.FacebookLink, new { @class = "form-control form-control-alternative", type = "text", placeholder = "https://www.facebook.com/example", value = Model.UserViewModel.FacebookLink })
+                                        @Html.ValidationMessageFor(m => m.UserViewModel.FacebookLink, "", new { @class = "validation-error text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.UserViewModel.TwitterLink, new { @class = "form-control-label" })
+                                        @Html.TextBoxFor(m => m.UserViewModel.TwitterLink, new { @class = "form-control form-control-alternative", type = "text", placeholder = "https://twitter.com/example", value = Model.UserViewModel.TwitterLink })
+                                        @Html.ValidationMessageFor(m => m.UserViewModel.TwitterLink, "", new { @class = "validation-error text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="my-4" />
+                        <!-- Education & Work -->
+                        <h6 class="heading-small text-muted mb-4">Education & Work</h6>
+                        <div class="pl-lg-4">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.UserViewModel.University, new { @class = "form-control-label" })
+                                        @Html.TextBoxFor(m => m.UserViewModel.University, new { @class = "form-control form-control-alternative", type = "text", placeholder = "Harvard University", value = Model.UserViewModel.University })
+                                        @Html.ValidationMessageFor(m => m.UserViewModel.University, "", new { @class = "validation-error text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.UserViewModel.Company, new { @class = "form-control-label" })
+                                        @Html.TextBoxFor(m => m.UserViewModel.Company, new { @class = "form-control form-control-alternative", type = "text", placeholder = "Microsoft", value = Model.UserViewModel.Company })
+                                        @Html.ValidationMessageFor(m => m.UserViewModel.Company, "", new { @class = "validation-error text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.UserViewModel.Position, new { @class = "form-control-label" })
+                                        @Html.TextBoxFor(m => m.UserViewModel.Position, new { @class = "form-control form-control-alternative", type = "text", placeholder = "CEO", value = Model.UserViewModel.Position })
+                                        @Html.ValidationMessageFor(m => m.UserViewModel.Position, "", new { @class = "validation-error text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="my-4" />
+                        <!-- Description -->
+                        <h6 class="heading-small text-muted mb-4">About me</h6>
+                        <div class="pl-lg-4">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.UserViewModel.About, new { @class = "form-control-label" })
+                                @Html.TextAreaFor(m => m.UserViewModel.About, new { @class = "form-control form-control-alternative", rows = "4", type = "text", placeholder = "Write about your self in a nutshell ...", value = Model.UserViewModel.About })
+                                @Html.ValidationMessageFor(m => m.UserViewModel.About, "", new { @class = "validation-error text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-auto text-right">
+                            <button class="btn btn-lg btn-neutral btn-primary" type="submit">Update</button>
+                        </div>
+                        <div class="col-12 text-center">
+                            @if (ViewBag.AccountSuccess != null && !ViewBag.AccountSuccess)
+                            {
+                                @Html.ValidationSummary(true, "", new {@class = "validation-error text-danger"})
+                            }
+                        </div>
+
+                    }
+                </div>
+            </div>
+            <div class="card bg-secondary shadow">
+                <div class="card-header bg-white border-0">
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <h3 class="mb-0">Security</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    @using (Html.BeginForm("UpdatePassword", "Settings", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        <h6 class="heading-small text-muted mb-4">Change Password</h6>
+                        <div class="pl-lg-4">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ChangePasswordViewModel.OldPassword, new { @class = "form-control-label" })
+                                        @Html.TextBoxFor(m => m.ChangePasswordViewModel.OldPassword, new { @class = "form-control form-control-alternative", type = "password", placeholder = "Old Password" })
+                                        @Html.ValidationMessageFor(m => m.ChangePasswordViewModel.OldPassword, "", new { @class = "validation-error text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ChangePasswordViewModel.NewPassword, new { @class = "form-control-label" })
+                                        @Html.TextBoxFor(m => m.ChangePasswordViewModel.NewPassword, new { @class = "form-control form-control-alternative", type = "password", placeholder = "New Password" })
+                                        @Html.ValidationMessageFor(m => m.ChangePasswordViewModel.NewPassword, "", new { @class = "validation-error text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.ChangePasswordViewModel.ConfirmPassword, new { @class = "form-control-label" })
+                                        @Html.TextBoxFor(m => m.ChangePasswordViewModel.ConfirmPassword, new { @class = "form-control form-control-alternative", type = "password", placeholder = "Confirm Password" })
+                                        @Html.ValidationMessageFor(m => m.ChangePasswordViewModel.ConfirmPassword, "", new { @class = "validation-error text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-auto text-right">
+                            <button class="btn btn-lg btn-neutral btn-primary" type="submit">Update</button>
+                        </div>
+                        <div class="col-12 text-center">
+                            @if (ViewBag.SecuritySuccess != null && !ViewBag.SecuritySuccess)
+                            {
+                                @Html.ValidationSummary(true, "", new { @class = "validation-error text-danger" })
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(document).ready(function () { 1 === @ViewBag.Updated && success('Your Profile has been <span class="d-inline toast-title">updated</span> successfully', "Updated") });
+    </script>
+}

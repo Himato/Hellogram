@@ -1,0 +1,20 @@
+﻿@model IEnumerable<HelloGram.Core.ViewModels.MemberViewModel>
+
+<!-- People -->
+<nav class="mb-n6">
+    @if (Model.Any())
+    {
+        foreach (var member in Model)
+        {
+            @Html.Partial("~/Views/Messenger/Member.cshtml", member)
+        }
+    }
+    else
+    {
+        <div class="chat flex-column justify-content-center text-center" style="margin-top: 50%">
+            <div class="container">
+                <p>There's no people found.</p>
+            </div>
+        </div>
+    }
+</nav>

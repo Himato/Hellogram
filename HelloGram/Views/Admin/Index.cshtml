@@ -1,0 +1,86 @@
+﻿@model HelloGram.Core.ViewModels.AdminViewModel
+@{
+    ViewBag.Title = "Admin";
+    Layout = "~/Views/Shared/_LoggedLayout.cshtml";
+}
+
+<!-- Header -->
+@Html.Partial("_HomeHeader")
+
+<div class="mx-auto w-100 mt--9">
+    <div class="header-body bg-gradient-primary w-100 pb-8 px-5">
+        <!-- Card stats -->
+        <div class="row">
+            @Html.Partial("_StatusCard", new { Name = "Users", Status = Model.UsersStatus, Icon = "fa-chart-bar", Color = "bg-danger" })
+            @Html.Partial("_StatusCard", new { Name = "New users", Status = Model.NewUsersStatus, Icon = "fa-chart-pie", Color = "bg-warning" })
+            @Html.Partial("_StatusCard", new { Name = "Active users", Status = Model.ActiveUsersStatus, Icon = "fa-users", Color = "bg-yellow" })
+            @Html.Partial("_StatusCard", new { Name = "Under 18 users", Status = Model.Under18Status, Icon = "fa-child", Color = "bg-danger" })
+        </div>
+
+        <div class="row mt-3">
+            @Html.Partial("_StatusCard", new { Name = "Views", Status = Model.ViewsStatus, Icon = "fa-chart-line", Color = "bg-info" })
+            @Html.Partial("_StatusCard", new { Name = "Posts", Status = Model.PostsStatus, Icon = "fa-book", Color = "bg-success" })
+            @Html.Partial("_StatusCard", new { Name = "Subscriptions", Status = Model.SubscriptionStatus, Icon = "fa-rss", Color = "bg-yellow" })
+            @Html.Partial("_StatusCard", new { Name = "Reactions", Status = Model.ReactionsStatus, Icon = "fa-thumbs-up", Color = "bg-primary" })
+        </div>
+    </div>
+
+    <!-- Table -->
+    <div class="row px-5 mt--7">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header border-0">
+                    <h3 class="mb-0">Users table (Max. 100 Users)</h3>
+                </div>
+                <div class="table-responsive">
+                    <table class="table align-items-center table-flush">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col" class="text-center">Name | Username</th>
+                                <th scope="col" class="text-center">Age</th>
+                                <th scope="col" class="text-center">Followers</th>
+                                <th scope="col" class="text-center">Following</th>
+                                <th scope="col" class="text-center">No. Posts</th>
+                                <th scope="col" class="text-center">Hits</th>
+                                <th scope="col" class="text-center">Creation Date</th>
+                                <th scope="col" class="text-center">Last Login</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var user in Model.UserViewModels)
+                            {
+                            <tr>
+                                <th scope="row">
+                                    <div class="media align-items-center">
+                                        <div class="avatar rounded-circle mr-3">
+                                            <img alt="Image placeholder" src="/Content/Images/Users/@user.Image" data-action="zoom">
+                                        </div>
+                                        <div class="media-body">
+                                            <span class="mb-0 text-sm">@user.Name | <a href="@Url.Action("UsersProfile", "Users", new { username = user.Username })" class="text-muted">@user.Username</a></span>
+                                        </div>
+                                    </div>
+                                </th>
+                                @if (!string.IsNullOrEmpty(user.Birthday))
+                                {
+                                    <td class="text-center">@user.GetAge()</td>
+                                }
+                                else
+                                {
+                                    <td class="text-center">NaN</td>
+                                }
+                                <td class="text-center">@user.NumberOfFollowers</td>
+                                <td class="text-center">@user.NumberOfFollowings</td>
+                                <td class="text-center">@user.NumberOfPosts</td>
+                                <td class="text-center">@user.Hits</td>
+                                <td class="text-center">@user.CreatedAt</td>
+                                <td class="text-center">@user.LastLogin</td>
+                            </tr>
+
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

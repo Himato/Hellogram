@@ -1,0 +1,46 @@
+﻿@model HelloGram.Core.ViewModels.UserViewModel
+
+<ul class="navbar-nav align-items-center d-none d-md-flex">
+    <li class="nav-item dropdown">
+        <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <div class="media align-items-center">
+                <span class="avatar avatar-sm rounded-circle">
+                    <img alt="Image placeholder" src="/Content/Images/Users/@Model.Image">
+                </span>
+                <div class="media-body ml-2 d-none d-lg-block">
+                    <span class="mb-0 text-sm font-weight-bold">@Model.Name</span>
+                </div>
+                <span class="badge badge-notifications position-absolute left-1 top-0 @(Model.NumberOfNotifications == 0 ? "hide " : "")js-notifications-number">@Model.NumberOfNotifications</span>
+            </div>
+        </a>
+        <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
+            <div class="dropdown-header">
+                <h6 class="m-0">Welcome!</h6>
+            </div>
+            <a href="javascript:void(0);" class="dropdown-item d-xl-none d-md-block" data-toggle="modal" data-target="#new-post-modal">
+                <i class="fas fa-plus"></i>
+                <span>New Post</span>
+            </a>
+            <a href="@Url.Action("Index", "Messenger")" class="dropdown-item">
+                <i class="fas fa-envelope-open-text"></i>
+                <span>Messages</span>
+                <i class="fas fa-circle text-center text-small text-danger ml-3 @(!Model.HasMessages ? "hide" : "") js-messages-notifier"></i>
+            </a>
+            <a href="@Url.Action("Notifications", "Home")" class="dropdown-item">
+                <i class="fas fa-bell"></i>
+                <span>Notifications</span>
+                <span class="badge badge-notifications ml-2 @(Model.NumberOfNotifications == 0 ? "hide " : "")js-notifications-number">@Model.NumberOfNotifications</span>
+            </a>
+            <a href="@Url.Action("UserProfile", "Users")" class="dropdown-item">
+                <i class="ni ni-single-02"></i>
+                <span>My Profile</span>
+            </a>
+            <a href="@Url.Action("Index", "Settings")" class="dropdown-item">
+                <i class="ni ni-settings-gear-65"></i>
+                <span>Settings</span>
+            </a>
+            <div class="dropdown-divider"></div>
+            @Html.Partial("_LogoutPartial")
+        </div>
+    </li>
+</ul>

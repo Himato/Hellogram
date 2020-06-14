@@ -1,0 +1,167 @@
+﻿@using HelloGram.Core.ViewModels
+@model BaseViewModel
+@{
+    string[,] navArray =  {
+        {"Home", "fas fa-home", Url.Action("Index", "Home")},
+        {"Trending", "fas fa-fire text-red", Url.Action("Trending", "Home")},
+        {"Categories", "fas fa-book text-blue", Url.Action("Index", "Categories")},
+        {"Followers", "fas fa-rss text-yellow", Url.Action("Followers", "Users")},
+        {"Followings", "fas fa-rss text-yellow", Url.Action("Followings", "Users")},
+        {"Saved Posts", "fas fa-bookmark text-green", Url.Action("SavedPosts", "Users")},
+        //{"Marketplace", "fas fa-store text-purple", "#"},
+        {"Notifications", "fas fa-bell text-red", Url.Action("Notifications", "Home")},
+        {"Messages", "fas fa-envelope-open-text text-primary", Url.Action("Index", "Messenger")},
+        //{"Community", "fas fa-bullhorn text-cyan", "#"},
+        {"Profile", "ni ni-single-02 text-yellow", Url.Action("UserProfile", "Users")},
+        {"Trash", "fas fa-trash text-info", Url.Action("UserTrash", "Users")}
+    };
+    if (!Request.IsAuthenticated)
+    {
+        Response.Redirect(Url.Action("Login", "Account") ?? "#");
+    }
+    ViewData.Add("username", Model.UserViewModel.Username);
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>
+        Hellogram - @ViewBag.Title
+    </title>
+    <!-- Favicon -->
+    <link href="/Content/Images/hellogram_logo.png" rel="icon" type="image/png">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+    <!-- Icons -->
+    <link href="/Content/assets/js/plugins/nucleo/css/nucleo.css" rel="stylesheet" />
+    <link href="/Content/assets/js/plugins/fontawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
+    <!-- CSS Files -->
+    <link href="/Content/assets/css/argon-dashboard.min.css?v=1.1.0" rel="stylesheet" />
+    <link href="/Content/Site.css" rel="stylesheet" />
+    <link href="/Content/toastr.css" rel="stylesheet" />
+</head>
+
+<body>
+    <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
+        <div class="container-fluid">
+            <!-- Toggler -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidenav-collapse-main" aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Brand -->
+            <a class="navbar-brand pt-0" href="@Url.Action("Index", "Home")">
+                <img src="/Content/Images/hellogram_icon.png" class="navbar-brand-img" alt="Icon">
+            </a>
+            <!-- User -->
+            @Html.Partial("_MobileNavbarUser", Model.UserViewModel)
+            <!-- Collapse -->
+            <div class="collapse navbar-collapse" id="sidenav-collapse-main">
+                <!-- Collapse header -->
+                <div class="navbar-collapse-header d-md-none">
+                    <div class="row">
+                        <div class="col-6 collapse-brand">
+                            <a href="@Url.Action("Index", "Home")">
+                                <img src="/Content/Images/hellogram_icon.png" alt="Logo">
+                            </a>
+                        </div>
+                        <div class="col-6 collapse-close">
+                            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#sidenav-collapse-main" aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle sidenav">
+                                <span></span>
+                                <span></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Form -->
+                <form class="mt-4 mb-3 d-md-none">
+                    <div class="input-group">
+                        <input type="search" class="form-control" placeholder="Search" aria-label="Search">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <span class="fa fa-search"></span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- Navigation -->
+                <ul class="navbar-nav">
+                    @for (var i = 0; i < navArray.Length / 3; i++)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link@(Model.Index == i ? " active" : "")" href="@navArray[i, 2]">
+                                <i class="@navArray[i, 1]"></i> @navArray[i, 0]
+                                @if (navArray[i, 0].Equals("Messages"))
+                                {
+                                    <i class="fas fa-circle text-center text-small text-danger m-auto @(!Model.UserViewModel.HasMessages ? "hide" : "") js-messages-notifier"></i>
+                                }
+                            </a>
+                        </li>
+                    }
+                </ul>
+                <!-- Divider -->
+                <hr class="my-3">
+                <!-- Heading -->
+                <h6 class="navbar-heading text-muted">User</h6>
+                <!-- Navigation -->
+                <ul class="navbar-nav mb-md-3">
+                    <li class="nav-item">
+                        <a class="nav-link@(Model.Index == (int) BaseViewModel.NavIndices.Settings ? " active" : "")" href="@Url.Action("Index", "Settings")">
+                            <i class="fas fa-cog text-gray"></i> Settings
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                        {
+                            <a href="javascript:void(0);" class="nav-link js-logout">
+                                <i class="ni ni-user-run text-danger"></i>
+                                <span>Logout</span>
+                            </a>
+                        }
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="main-content">
+        <!-- Navbar -->
+        @Html.Partial("_Navbar", Model.UserViewModel)
+        <!-- End Navbar -->
+        @RenderBody()
+        <!-- Footer -->
+        <footer class="footer pt-0">
+            <div class="row align-items-center justify-content-xl-between">
+                <div class="col-xl-6">
+                    <div class="copyright text-center text-xl-left text-muted">
+                        &copy; @DateTime.UtcNow.Year - <a href="@Url.Action("Index", "Home")" class="font-weight-bold ml-1" target="_blank">Hellogram</a>
+                    </div>
+                </div>
+                <div class="col-xl-6">
+                    <ul class="nav nav-footer justify-content-center justify-content-xl-end">
+                        <li class="nav-item">
+                            <a href="@Url.Action("About", "Home")" class="nav-link" target="_blank">About Us</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </footer>
+    </div>
+    @Html.Partial("~/Views/Shared/Modals/_NewPostModal.cshtml", Model.Categories, ViewData)
+    @Html.Partial("~/Views/Shared/Modals/_EditPostModal.cshtml", Model.Categories, ViewData)
+    @Html.Partial("~/Views/Shared/Modals/_DeleteConfirmationModal.cshtml")
+    @Html.Partial("~/Views/Shared/Modals/_UnderConstructionModal.cshtml")
+    <!--   Core   -->
+    <script src="/Content/assets/js/plugins/jquery/dist/jquery.min.js"></script>
+    <script src="/Content/assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!--   Argon JS   -->
+    <script src="/Content/assets/js/argon-dashboard.min.js?v=1.1.0"></script>
+    <script src="/Scripts/jquery.signalR-2.4.1.min.js"></script>
+    <script src="/signalr/hubs"></script>
+    <script src="/Scripts/toastr.min.js"></script>
+    <script src="/Scripts/main.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+
+</html>

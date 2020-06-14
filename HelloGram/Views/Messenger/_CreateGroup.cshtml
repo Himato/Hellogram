@@ -1,0 +1,76 @@
+﻿@model List<HelloGram.Core.ViewModels.MemberViewModel>
+<div class="d-flex flex-column h-100">
+    <div class="hide-scrollbar">
+        <div class="container-fluid py-6">
+            <!-- Title -->
+            <h2 class="font-bold mb-6">Create group</h2>
+            <!-- Search -->
+            <form class="mb-6">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for messages or users..." aria-label="Search for messages or users...">
+                    <div class="input-group-append">
+                        <button class="btn btn-ico btn-secondary btn-minimal" type="submit">
+                            <i class="fe-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+            <!-- Tabs -->
+            <ul class="nav nav-tabs nav-justified mb-6" role="tablist">
+                <li class="nav-item">
+                    <a href="#create-group-details" class="nav-link active" data-toggle="tab" role="tab" aria-selected="true">Details</a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="#create-group-members" class="nav-link" data-toggle="tab" role="tab" aria-selected="false">Members</a>
+                </li>
+            </ul>
+            <!-- Create chat -->
+            <div class="tab-content" role="tablist">
+                <!-- Chat details -->
+                <div id="create-group-details" class="tab-pane fade show active" role="tabpanel">
+                    <form action="#">
+                        <div class="form-group">
+                            <label class="small">Photo</label>
+                            <div class="position-relative text-center bg-secondary rounded p-6">
+                                <div class="avatar bg-primary text-white mb-5">
+                                    <i class="icon-md fe-image"></i>
+                                </div>
+
+                                <p class="small text-muted mb-0">You can upload jpg, gif or png files. <br> Max file size 3 MB.</p>
+                                <input id="upload-chat-photo" class="d-none" type="file">
+                                <label class="stretched-label mb-0" for="upload-chat-photo"></label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="small" for="new-chat-title">Title</label>
+                            <input name="new-chat-title" id="new-chat-title" type="text" class="form-control" placeholder="Group name">
+                        </div>
+
+                        <div class="form-group mb-0">
+                            <label class="small" for="new-chat-description">Description</label>
+                            <textarea class="form-control" name="new-chat-description" id="new-chat-description" rows="6" placeholder="Group description..."></textarea>
+                        </div>
+                    </form>
+                </div>
+                <!-- Chat Members -->
+                <div id="create-group-members" class="tab-pane fade" role="tabpanel">
+                    <nav class="list-group list-group-flush mb-n6">
+                        @foreach (var member in Model)
+                        {
+                            @Html.Partial("Member", member)
+                        }
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Button -->
+    <div class="pb-6">
+        <div class="container-fluid">
+            <button class="btn btn-primary btn-block" type="submit">Create group</button>
+        </div>
+    </div>
+</div>

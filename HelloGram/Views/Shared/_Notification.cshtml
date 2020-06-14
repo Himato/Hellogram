@@ -1,0 +1,36 @@
+﻿@using HelloGram.Core.Models
+@model HelloGram.Core.ViewModels.NotificationViewModel
+
+<a href="@(Model.Type == NotificationType.Follow ? Url.Action("Followers", "Users") : Model.Post)" class="js-notification" data-notification-id="@Model.Id">
+    <div class="row notification-body pointer @(!Model.IsRead ? " new-notification" : "")">
+        <div class="col-auto post-user-image px-0 mr-3">
+            <img src="/Content/Images/Users/@Model.Image" class="rounded-circle post-user-image" alt="User Image">
+        </div>
+        <div class="col h-auto px-0">
+            <div class="row mx-0">
+                <strong>@Model.Name</strong>
+                <span class="ml-1 d-inline">@(Model.Type == NotificationType.Follow ? "followed you." : Model.Type == NotificationType.Comment ? $"commented on {Model.OwnershipType} post." : Model.Type == NotificationType.Like ? $"liked {Model.OwnershipType} post." : $"disliked {Model.OwnershipType} post.")</span>
+            </div>
+            <div class="row position-absolute left-0 bottom-0 mx-0">
+                @switch (Model.Type)
+                {
+                    case NotificationType.Comment:
+                        <i class="fas fa-comments text-primary"></i>
+                        break;
+                    case NotificationType.Like:
+                        <i class="fas fa-thumbs-up text-green"></i>
+                        break;
+                    case NotificationType.Dislike:
+                        <i class="fas fa-thumbs-down text-red"></i>
+                        break;
+                    case NotificationType.Follow:
+                        <i class="fas fa-rss text-yellow"></i>
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+                <span class="ml-2 text-sm d-inline">@Model.GetFormattedDate()</span>
+            </div>
+        </div>
+    </div>
+</a>

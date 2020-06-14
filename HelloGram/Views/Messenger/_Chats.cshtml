@@ -1,0 +1,21 @@
+﻿@model List<HelloGram.Core.ViewModels.MemberViewModel>
+@{
+    ViewBag.Title = "Chats";
+    Layout = "_Tab.cshtml";
+}
+
+<!-- Chats -->
+<nav class="nav d-block mb-n6">
+    @foreach (var member in Model)
+    {
+        @Html.Partial("Member", member)
+    }
+    @if (!Model.Any())
+    {
+        <div class="chat flex-column justify-content-center text-center js-start-chats" style="margin-top: 50%">
+            <div class="container">
+                <p>You can start a chat from the People tab or by searching for users.</p>
+            </div>
+        </div>
+    }
+</nav>

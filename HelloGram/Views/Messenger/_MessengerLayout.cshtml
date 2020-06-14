@@ -1,0 +1,94 @@
+﻿
+@model HelloGram.Core.ViewModels.MessengerViewModel
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1, shrink-to-fit=no">
+    <title>Hellogram - Messenger</title>
+    <!-- Favicon -->
+    <link href="/Content/Images/hellogram_logo.png" rel="icon" type="image/png">
+
+    <!-- Template core CSS -->
+    <link id="theme-style" href="/Content/Messenger/Assets/main.css" rel="stylesheet">
+    <link href="/Content/Messenger/Assets/added.css" rel="stylesheet">
+</head>
+<body>
+    <div class="layout">
+        <!-- Navbar -->
+        <div class="navigation navbar navbar-light py-lg-7">
+            <!-- Brand -->
+            <a href="@Url.Action("Index", "Home")" class="d-none d-lg-block">
+                <img src="/Content/Images/hellogram_logo.png" class="mx-auto fill-primary" data-inject-svg="" alt="" style="height: 46px;">
+            </a>
+            <!-- Menu -->
+            <ul id="menu" class="nav navbar-nav flex-row flex-lg-column flex-grow-1 justify-content-between py-2 py-lg-0" role="tablist">
+                <!-- Friend -->
+                <li class="nav-item mt-lg-8">
+                    <a class="nav-link position-relative p-0 py-2" data-toggle="tab" href="#tab-content-people" title="People" role="tab">
+                        <i class="icon-lg fe-users"></i>
+                    </a>
+                </li>
+                <!-- Chats -->
+                <li class="nav-item mt-lg-8 flex-lg-grow-1">
+                    <a class="nav-link position-relative p-0 py-2 active" data-toggle="tab" href="#tab-content-dialogs" title="Chats" role="tab">
+                        <i class="icon-lg fe-message-square"></i>
+                        <div class="badge badge-dot badge-primary badge-bottom-center@(!Model.HasChats ? " hide" : "")"></div>
+                    </a>
+                </li>
+                <!-- Settings -->
+                <li class="nav-item mt-lg-8">
+                    <a class="nav-link position-relative p-0 py-2" data-toggle="tab" href="#tab-content-settings" title="Settings" role="tab">
+                        <i class="icon-lg fe-settings"></i>
+                    </a>
+                </li>
+                <!-- Profile: Hidden on lg -->
+                <li class="nav-item mt-lg-8 d-block d-lg-none">
+                    <a class="nav-link position-relative p-0 py-2" data-toggle="tab" href="#tab-content-user" title="User" role="tab">
+                        <i class="icon-lg fe-user"></i>
+                    </a>
+                </li>
+                <!-- Profile: Hidden on sm -->
+                <li class="nav-item mt-lg-8 d-none d-lg-block">
+                    <a class="nav-link position-relative p-0 py-2" data-toggle="tab" href="#tab-content-user" title="User" role="tab">
+                        <div id="user-avatar" class="avatar avatar-sm@(Model.SettingsViewModel.ActiveState ? " avatar-online" : "") mx-auto">
+                            <img src="/Content/Images/Users/@Model.UserViewModel.Image" alt="@Model.UserViewModel.Username">
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="tab-content h-100" role="tablist">
+                <div class="tab-pane fade h-100" id="tab-content-people" role="tabpanel">
+                    @Html.Partial("_People", Model.PeopleMembers)
+                </div>
+
+                <div class="tab-pane fade h-100 show active" id="tab-content-dialogs" role="tabpanel">
+                    @Html.Partial("_Chats", Model.ChatsMembers)
+                </div>
+
+                <div class="tab-pane fade h-100" id="tab-content-settings" role="tabpanel">
+                    @Html.Partial("_Settings", Model.SettingsViewModel)
+                </div>
+
+                <div class="tab-pane fade h-100" id="tab-content-user" role="tabpanel">
+                    @Html.Partial("_Profile", Model.UserViewModel)
+                </div>
+            </div>
+        </div>
+        <!-- Main Content -->
+        @RenderBody()
+    </div>
+    <!-- Scripts -->
+    <script src="/Content/assets/js/plugins/jquery/dist/jquery.min.js"></script>
+    <script src="/Content/assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/Content/Messenger/Assets/js/plugins.bundle.js"></script>
+    <script src="/Content/Messenger/Assets/js/main.js"></script>
+    <script src="/Scripts/jquery.signalR-2.4.1.min.js"></script>
+    <script src="/signalr/hubs"></script>
+    @RenderSection("scripts", false)
+</body>
+</html>

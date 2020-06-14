@@ -1,0 +1,178 @@
+﻿@model HelloGram.Core.ViewModels.ChatViewModel
+@{
+    Layout = "_MessengerLayout.cshtml";
+}
+
+<div class="main main-visible" data-mobile-height="">
+    <!-- Chat -->
+    <div class="chat js-chat" data-username="@Model.ReceiverUserViewModel.Username">
+        <!-- Chat: body -->
+        <div class="chat-body">
+            <!-- Chat: Header -->
+            <div class="chat-header border-bottom py-4 py-lg-7">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <!-- Close chat(mobile) -->
+                        <div class="col-3 d-lg-none">
+                            <ul class="list-inline mb-0">
+                                <li class="list-inline-item">
+                                    <a class="text-muted px-0" href="#" data-chat="open">
+                                        <i class="icon-md fe-chevron-left"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- Chat photo -->
+                        <div class="col-6 col-lg-6 js-chat-photo">
+                            <div class="media text-center text-lg-left">
+                                <a class="avatar avatar-sm@(Model.IsOnline ? " avatar-online" : "") d-none d-lg-inline-block mr-5" href="@Url.Action("UsersProfile", "Users", new { username =  Model.ReceiverUserViewModel.Username })" target="_blank">
+                                    <img src="/Content/Images/Users/@Model.ReceiverUserViewModel.Image" alt="@Model.ReceiverUserViewModel.Name">
+                                </a>
+                                <div class="media-body align-self-center">
+                                    <a href="@Url.Action("UsersProfile", "Users", new { username =  Model.ReceiverUserViewModel.Username })" target="_blank">
+                                        <h6 class="mb-n2">@Model.ReceiverUserViewModel.Name</h6>
+                                    </a>
+                                    @if (Model.LastLogin != null)
+                                    {
+                                        <small class="text-muted js-last-login">@Model.LastLogin</small>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Chat toolbar -->
+                        <div class="col-3 col-lg-6 text-right">
+                            <ul class="nav justify-content-end">
+                                <li class="nav-item list-inline-item mr-0">
+                                    <a class="nav-link text-muted px-3" href="#" data-chat-sidebar-toggle="#chat-details" title="Details">
+                                        <i class="icon-md fe-sliders"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Chat: Content -->
+            @if (!Model.MessageViewModels.Any())
+            {
+                <div class="chat flex-column justify-content-center text-center js-start-messaging">
+                    <div class="container">
+                        <h6>Start by saying Hi!</h6>
+                    </div>
+                </div>
+            }
+            <div class="chat-content">
+                <div class="container py-6 py-lg-9 js-messages-container">
+                    @foreach (var message in Model.MessageViewModels)
+                    {
+                        @Html.Partial("Message", message)
+                    }
+                </div>
+                <!-- Scroll to end -->
+                <div class="end-of-chat"></div>
+            </div>
+            <!-- Chat: DropzoneJS container -->
+            <div class="chat-files hide-scrollbar">
+                <div class="container">
+                    <div class="dropzone-previews-js form-row py-4"></div>
+                </div>
+            </div>
+            <!-- Chat: Footer -->
+            <div class="chat-footer border-top py-4 py-lg-7">
+                <div class="container">
+                    <form id="chat-form" data-emoji-form="">
+                        <div class="input-group">
+                            <!-- Upload button -->
+                            <div class="input-group-prepend">
+                                <button id="chat-upload-btn" class="btn btn-ico btn-secondary btn-minimal dropzone-button-js dz-clickable" type="button" data-dz-url="/api/messenger/files?username=@Model.ReceiverUserViewModel.Username">
+                                    <i class="fe-paperclip"></i>
+                                </button>
+                            </div>
+                            <!-- Textarea -->
+                            <textarea id="chat-input" class="form-control" placeholder="Type your message..." rows="1" data-emoji-input="" data-autosize="true"></textarea>
+                            <!-- Emoji button -->
+                            <div class="input-group-append mr-n4">
+                                <button class="btn btn-ico btn-secondary btn-minimal" type="button" data-emoji-btn="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-smile injected-svg"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line></svg>
+                                </button>
+                            </div>
+                            <!-- Submit button -->
+                            <div class="input-group-append">
+                                <button id="chat-btn" class="btn btn-ico btn-secondary btn-minimal" type="submit">
+                                    <i class="fe-send"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Chat Details -->
+        <div id="chat-details" class="chat-sidebar">
+            <div class="d-flex h-100 flex-column">
+                <!-- Header -->
+                <div class="border-bottom py-4 py-lg-7">
+                    <div class="container-fluid">
+                        <ul class="nav justify-content-between align-items-center">
+                            <!-- Close sidebar -->
+                            <li class="nav-item list-inline-item">
+                                <a class="nav-link text-muted px-0" href="#" data-chat-sidebar-close="">
+                                    <i class="icon-md fe-chevron-left"></i>
+                                </a>
+                            </li>
+                            <!-- Title(mobile) -->
+                            <li class="text-center d-block d-lg-none">
+                                <h6 class="mb-n2">@Model.ReceiverUserViewModel.Name</h6>
+                                <small class="text-muted">Chat Details</small>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Body -->
+                <div class="hide-scrollbar flex-fill">
+                    <div class="border-bottom text-center py-9 px-10">
+                        <!-- Photo -->
+                        <a class="avatar avatar-xl mx-5 mb-5" href="@Url.Action("UsersProfile", "Users", new { username = Model.ReceiverUserViewModel.Username })" target="_blank">
+                            <img src="/Content/Images/Users/@Model.ReceiverUserViewModel.Image" alt="@Model.ReceiverUserViewModel.Name">
+                        </a>
+                        <a href="@Url.Action("UsersProfile", "Users", new { username =  Model.ReceiverUserViewModel.Username })" target="_blank">
+                            <h5>@Model.ReceiverUserViewModel.Name</h5>
+                        </a>
+                        <p class="text-muted">@Model.ReceiverUserViewModel.About</p>
+                    </div>
+                    <!-- Nav -->
+                    <div class="nav nav-tabs nav-justified bg-light rounded-0" role="tablist">
+                        <a class="nav-item nav-link active" href="#user-details" data-toggle="tab" aria-selected="true" role="tab">Details</a>
+                        <a class="nav-item nav-link" href="#user-files" data-toggle="tab" role="tab">Files</a>
+                    </div>
+                    <div class="tab-content" role="tablist">
+                        <!-- Details -->
+                        <div id="user-details" class="tab-pane fade show active mb-8" role="tabpanel">
+                            @Html.Partial("_UserDetails", Model.ReceiverUserViewModel)
+                        </div>
+                        <!-- Files -->
+                        <div id="user-files" class="tab-pane fade" role="tabpanel">
+                            <ul class="list-group list-group-flush list-group-no-border-first js-files">
+                                @if (Model.FileViewModels.Any())
+                                {
+                                    @Html.Partial("File", Model.FileViewModels)
+                                }
+                                else
+                                {
+                                    <li class="list-group-item py-6 js-files-deprecated"><p class="text-center">There's no added files.</p></li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("_DropzoneTemplate")
+
+@section scripts
+{
+    <script src="/Content/Messenger/Assets/js/loader-chat.js"></script>
+}

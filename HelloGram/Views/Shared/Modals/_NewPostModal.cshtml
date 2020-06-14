@@ -1,0 +1,41 @@
+﻿
+
+<div class="modal fade" id="new-post-modal" tabindex="-1" role="dialog" aria-labelledby="new-post-modal" data-user-name="@ViewData["username"]" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h3 class="modal-title">Add a new Post</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <div id="new-post-body" class="modal-body pt-0 pb-0">
+                <textarea id="new-post-text" class="form-control form-control-alternative form-control-post-modal" rows="6" type="text" placeholder="What do you have in mind?"></textarea>
+            </div>
+
+            <div class="modal-footer pb-0">
+                @Html.DropDownList("CategoryName", new SelectList(Model), "Select Category", new { @class = "form-control form-control-alternative form-control-post-modal w-35", id = "new-post-category" })
+                <div id="new-post-image-container" class="custom-file w-35 ml-2">
+                    <input type="file" class="custom-file-input" id="new-post-image" name="image" accept="image/*" required>
+                    <label class="custom-file-label" for="new-post-image">Add an image</label>
+                </div>
+                <a id="new-post-btn" class="btn btn-primary btn-rounded ml-auto" href="javascript:void(0);">
+                    <span>Post</span>
+                    <div class="bounce1"></div>
+                    <div class="bounce2"></div>
+                    <div class="bounce3"></div>
+                </a>
+            </div>
+            <p id="new-post-validation-message" class="validation-error text-danger text-center w-100"></p>
+            <div id="new-post-image-preview-container" class="hide">
+                <div class="text-center">
+                    <img id="new-post-image-preview" class="post-image m-3" src="#" alt="Post Image Preview"/>
+                </div>
+                <div class="text-center">
+                    <button id="new-post-delete-image" type="button" class="btn btn-warning mb-3">Remove Image</button></div>
+            </div>
+        </div>
+    </div>
+</div>

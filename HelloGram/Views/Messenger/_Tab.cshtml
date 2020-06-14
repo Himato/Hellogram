@@ -1,0 +1,22 @@
+﻿
+<div class="d-flex flex-column h-100">
+    <div class="hide-scrollbar">
+        <div class="container-fluid py-6">
+            <!-- Title -->
+            <h2 class="font-bold mb-6">@ViewBag.Title</h2>
+            <!-- Search -->
+            <div class="mb-6">
+                <div class="input-group">
+                    <input type="text" class="form-control js-search" placeholder="Search for users..." aria-label="Search for users...">
+                    <div class="input-group-append">
+                        <a class="btn btn-ico btn-secondary btn-minimal">
+                            <i class="fe-search"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="alert alert-danger text-center hide mt-4 js-lost-connection" role="alert">Check your internet connection</div>
+            </div>
+            @RenderBody()
+        </div>
+    </div>
+</div>

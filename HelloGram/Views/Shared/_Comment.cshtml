@@ -1,0 +1,44 @@
+﻿
+
+<div class="row hide mb-3 js-post-comment-container" data-comment-id="@Model.Id">
+    <a href="@Url.Action("UsersProfile", "Users", new { username =  Model.Username })" target="_blank">
+        <img src="/Content/Images/Users/@Model.UserImage" class="rounded-circle post-new-comment-user-image mt-2" alt="User Image">
+    </a>
+    <div class="col post-comment-disabled">
+        <div class="row mx-0">
+            <div class="col px-0">
+                <a href="@Url.Action("UsersProfile", "Users", new { username =  Model.Username })" target="_blank">
+                    <span class="h4 font-weight-bold">@Model.Name</span>
+                </a>
+                @if (Model.Error == null)
+                {
+                    <span class="text-sm text-muted text-nowrap ml-1 d-inline" data-toggle="tooltip" data-placement="top" title="@Model.Date"> - @Model.GetFormattedDate()</span>
+                }
+                else
+                {
+                    <span class="text-sm text-muted text-nowrap text-red ml-1 d-inline">@Model.Error</span>
+                }
+            </div>
+            @if (Model.Has)
+            {
+                <div class="col-auto px-0">
+                    <a class="fas fa-ellipsis-v js-comment-dropdown" href="javascript:void(0);" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+                    <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right comment-menu">
+                        @if (Model.IsOwner)
+                        {
+                            <a href="javascript:void(0);" class="dropdown-item js-comment-edit">
+                                <i class="fas fa-pen-square w-10"></i>
+                                <span>Edit</span>
+                            </a>
+                        }
+                        <a href="javascript:void(0);" class="dropdown-item js-comment-delete">
+                            <i class="fas fa-trash w-10"></i>
+                            <span>Delete</span>
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+        <pre class="post-comment-text w-auto my-1">@Model.Text</pre>
+    </div>
+</div>

@@ -1,0 +1,103 @@
+﻿@using HelloGram.Core.Models
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="main-content">
+    <!-- Navbar -->
+    <nav class="navbar navbar-top navbar-horizontal navbar-expand-md navbar-dark">
+        <div class="container px-4">
+            <a class="navbar-brand" href="@Url.Action("Index", "Home")">
+                <img src="/Content/Images/hellogram_white.png" alt="HelloGram" />
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse-main" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbar-collapse-main">
+                <!-- Collapse header -->
+                <div class="navbar-collapse-header d-md-none">
+                    <div class="row">
+                        <div class="col-6 collapse-brand">
+                            <a href="@Url.Action("Index", "Home")">
+                                <img src="/Content/Images/hellogram_icon.png" alt="HelloGram">
+                            </a>
+                        </div>
+                        <div class="col-6 collapse-close">
+                            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse-main" aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle sidenav">
+                                <span></span>
+                                <span></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                @if (Request.IsAuthenticated)
+                {
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-icon" href="@Url.Action("UserProfile", "Users")">
+                                <span class="nav-link-inner--text">@ViewBag.Name</span>
+                            </a>
+                        </li>
+                    </ul>
+                }
+                else
+                {
+                    <!-- Navbar items -->
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-icon" href="@Url.Action("Register", "Account")">
+                                <i class="ni ni-circle-08"></i>
+                                <span class="nav-link-inner--text">Register</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-icon" href="@Url.Action("Login", "Account")">
+                                <i class="ni ni-key-25"></i>
+                                <span class="nav-link-inner--text">Login</span>
+                            </a>
+                        </li>
+                    </ul>
+                }
+            </div>
+        </div>
+    </nav>
+    <!-- Header -->
+    <div class="header bg-gradient-primary py-7 py-lg-8">
+        <div class="container">
+            <div class="text-center mb-7">
+                <div class="row justify-content-center">
+                    <div class="col-lg-5 col-md-6">
+                        <h1 class="text-white">Welcome!</h1>
+                        <p class="text-light">This community wasn't and won't be like those who were.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="separator separator-bottom separator-skew">
+            <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
+            </svg>
+        </div>
+    </div>
+    <!-- Page content -->
+    @RenderBody()
+    <footer class="py-5">
+        <div class="container">
+            <div class="row align-items-center justify-content-xl-between">
+                <div class="col-xl-6">
+                    <div class="copyright text-center text-xl-left text-muted">
+                        &copy; @DateTime.UtcNow.Year - <a href="@Url.Action("Index", "Home")" class="font-weight-bold ml-1" target="_blank">Hellogram</a>
+                    </div>
+                </div>
+                <div class="col-xl-6">
+                    <ul class="nav nav-footer justify-content-center justify-content-xl-end">
+                        <li class="nav-item">
+                            <a href="@Url.Action("About", "Home")" class="nav-link" target="_blank">About Us</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+@RenderSection("scripts", required: false)

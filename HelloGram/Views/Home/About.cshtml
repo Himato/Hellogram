@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = "About Us";
+    Layout = "~/Views/Account/_Shared.cshtml";
+}
+
+<!-- Page content -->
+<div class="container mt--8 pb-5">
+    <!-- Table -->
+    <div class="row justify-content-center" style="margin-bottom:25px;">
+        <div class="col-lg-12 col-md-8">
+            <div class="card bg-secondary shadow border-0">
+                <div style="margin:30px;">
+                    <h1 class="text-default">About Community</h1>
+                    <p class="text-default" align="justify">This community is a meaningful useful social media website. This community is full of great things that doesn't waste your time and makes you have a good meaningful time. First of all, this community is build upon categories in different areas so that you can discover the posts by category in <a href="@Url.Action("Index", "Categories")">Categories</a> page. And of course, you can subscribe to any category so that you can see all the posts of your subscriptions in the <a href="@Url.Action("Index", "Home")">Home</a> page. Second, you can follow people that you find interesting. You can see all the people you're following in the <a href="@Url.Action("Followings", "Users")">Followings</a> page. Fourth, you can see your messages in the <a href="@Url.Action("Index", "Messenger")">Messages</a> page. Fifth, you can see all the trending posts of all categories in the <a href="@Url.Action("Trending", "Home")">Trending</a> page. And finally, if you saved any post you see it in the <a href="@Url.Action("SavedPosts", "Users")">Saved Posts</a> page.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center" style="margin-bottom:25px;">
+        <div class="col-lg-12 col-md-8">
+            <div class="card bg-secondary shadow border-0">
+                <div style="margin:30px;">
+                    <h1 class="text-default">About Me</h1>
+                    <p align="justify" style="margin-bottom: 25px;">My name is Ibrahim Gamal, and I’m a .NET Developer raised in Egypt with over 6 years of experience but not on a specific technology. I love programming since I was young. I started learning when I was 14, I wanted to create a website for my Facebook page and I has no idea on what the programming is, actually I didn’t know that there’s something called programming. So, I started googling on how to build a website and one thing let to another and I found myself learning how to create a blog using Blogger. And when I created my first blog, I want to edit a lot of things in the template and make my website even better, so I started learning how to edit these templates using HTML and CSS and till then I had no idea what the programming is. Till I encountered with a Visual Basic course, I watched it with passion and I always wanted more. And when my 6 years older brother saw me building these apps, he introduced me to computer science area and told me that I can work in this area and become a developer. So, he made me even more passionate for learning, and when I grow up, I went to the college to major in Computer Science.</p>
+                    <figure style="text-align:center;"><img src="/Content/Images/about_me.jpg" style="width: 75%" alt="image"></figure>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-lg-12 col-md-8">
+            <div class="card bg-secondary shadow border-0">
+                <div style="margin:30px;">
+                    <h1 class="text-default">Contact Me</h1>
+                    <p align="justify" style="text-align:center;">Phone: (+20) 01140723831<br />Email: himato.gamal120@outlook.com<br />Facebook: <a href="https://www.facebook.com/himatoooo" target="_blank">Hima Gamal</a><br />LinkedIn: <a href="https://www.linkedin.com/in/hima-gamal" target="_blank">Ibrahim Gamal</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

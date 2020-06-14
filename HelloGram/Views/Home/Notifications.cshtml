@@ -1,0 +1,39 @@
+﻿@using HelloGram.Core.ViewModels
+@model HelloGram.Core.ViewModels.NotificationsViewModel
+@{
+    ViewBag.Title = "Notifications";
+    Layout = "~/Views/Shared/_LoggedLayout.cshtml";
+}
+
+<!-- Header -->
+@Html.Partial("_HomeHeader")
+<!-- Page Content -->
+<div class="container-fluid mt--8">
+    <div id="home-post-container" class="col-xl-8 order-xl-1 mb-5 mb-xl-0">
+        <!-- Notifications -->
+        <div class="card mb-4 notifications-container">
+            <div class="row notification-header">
+                <span>Notifications</span>
+                @if (Model.NotificationViewModels.Any())
+                {
+                    <a href="javascript:void(0);" class="text-primary position-absolute right-0 mr-2 js-mark-as-read">Mark All As Read</a>
+                }
+            </div>
+            @foreach (var notification in Model.NotificationViewModels)
+            {
+                @Html.Partial("_Notification", notification)
+            }
+            @if (!Model.NotificationViewModels.Any())
+            {
+                <div class="row notification-body border-0 text-center">
+                    <span class="m-auto py-3">There's no notifications to show yet.</span>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="/Scripts/loader-notifications.js"></script>
+}

@@ -1,0 +1,38 @@
+﻿@using HelloGram.Core.ViewModels
+@model HelloGram.Core.ViewModels.HomeViewModel
+@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_LoggedLayout.cshtml";
+}
+
+<!-- Header -->
+@Html.Partial("_HomeHeader")
+<!-- Page Content -->
+<div class="container-fluid mt--7">
+    <div id="home-post-container" class="@(!Model.PostViewModels.Any() ? "col-xl-12" : "col-xl-8") order-xl-1 mb-5 mb-xl-0">
+        <!-- Post -->
+        @foreach (var post in Model.PostViewModels)
+        {
+            @Html.Partial("_Post", post)
+        }
+        @if (!Model.PostViewModels.Any())
+        {
+            @Html.Partial("InitialPosts")
+        }
+    </div>
+    @if (Model.PostViewModels.Any())
+    {
+        <div class="col text-center">
+            <a id="load-more-btn" class="btn btn-lg btn-neutral text-center spinner-black mt-4" type="submit" style="width: 150px;" href="javascript:void(0);">
+                <span>Load More</span>
+                <div class="bounce1"></div>
+                <div class="bounce2"></div>
+                <div class="bounce3"></div>
+            </a>
+        </div>
+    }
+</div>
+
+@section scripts {
+    <script src="/Scripts/loader-posts.js"></script>
+}

@@ -1,0 +1,78 @@
+﻿@using Microsoft.Ajax.Utilities
+@model HelloGram.Core.ViewModels.UserViewModel
+
+<!-- Card -->
+<div class="card mb-6">
+    <div class="card-body">
+        <ul class="list-group list-group-flush">
+            @if (!Model.City.IsNullOrWhiteSpace() || !Model.Country.IsNullOrWhiteSpace())
+            {
+                <li class="list-group-item px-0 py-6">
+                    <div class="media align-items-center">
+                        <div class="media-body">
+                            <p class="small text-muted mb-0">Address</p>
+                            <p>@(Model.City.IsNullOrWhiteSpace() ? Model.Country.IsNullOrWhiteSpace() ? "" : Model.Country : Model.Country.IsNullOrWhiteSpace() ? Model.City : Model.City + ", " + Model.Country)</p>
+                        </div>
+                        <i class="text-muted icon-sm fe-globe"></i>
+                    </div>
+                </li>
+            }
+
+            @if (!Model.PhoneNumber.IsNullOrWhiteSpace())
+            {
+                <li class="list-group-item px-0 py-6">
+                    <div class="media align-items-center">
+                        <div class="media-body">
+                            <p class="small text-muted mb-0">Phone</p>
+                            <p>@Model.PhoneNumber</p>
+                        </div>
+                        <i class="text-muted icon-sm fe-mic"></i>
+                    </div>
+                </li>
+            }
+
+            <li class="list-group-item px-0 py-6">
+                <div class="media align-items-center">
+                    <div class="media-body">
+                        <p class="small text-muted mb-0">Email</p>
+                        <p>@Model.Email</p>
+                    </div>
+                    <i class="text-muted icon-sm fe-mail"></i>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<!-- Card -->
+@if (!Model.FacebookLink.IsNullOrWhiteSpace() || !Model.TwitterLink.IsNullOrWhiteSpace())
+{
+    <div class="card mb-6">
+        <div class="card-body">
+            <ul class="list-group list-group-flush">
+                @if (!Model.TwitterLink.IsNullOrWhiteSpace())
+                {
+                    <li class="list-group-item px-0 py-6">
+                        <a href="@Model.TwitterLink" class="media text-muted">
+                            <div class="media-body align-self-center">
+                                Twitter
+                            </div>
+                            <i class="icon-sm fe-twitter"></i>
+                        </a>
+                    </li>
+                }
+
+                @if (!Model.FacebookLink.IsNullOrWhiteSpace())
+                {
+                    <li class="list-group-item px-0 py-6">
+                        <a href="@Model.FacebookLink" class="media text-muted">
+                            <div class="media-body align-self-center">
+                                Facebook
+                            </div>
+                            <i class="icon-sm fe-facebook"></i>
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+}

@@ -1,0 +1,108 @@
+﻿@model HelloGram.Core.ViewModels.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+    Layout = "_Shared.cshtml";
+}
+
+<!-- Page content -->
+<div class="container mt--8 pb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-7">
+            <div class="card bg-secondary shadow border-0">
+                @*<div class="card-header bg-transparent pb-5">
+                    <div class="text-muted text-center mt-2 mb-3"><small>Sign up with</small></div>
+                    <div class="btn-wrapper text-center">
+                        @using (Html.BeginForm("ExternalLogin", "Account", new { provider = "facebook", returnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "d-inline" }))
+                        {
+                            <a href="/" class="btn btn-neutral btn-icon social-btn">
+                                <span class="btn-inner--icon"><img src="/Content/Images/facebook.svg" alt="Facebook"></span>
+                                <span class="btn-inner--text">Facebook</span>
+                            </a>
+                        }
+                        @using (Html.BeginForm("ExternalLogin", "Account", new { provider = "facebook", returnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "d-inline" }))
+                        {
+                            <a href="/" class="btn btn-neutral btn-icon social-btn">
+                                <span class="btn-inner--icon"><img src="/Content/Images/twitter.svg" alt="Twitter"></span>
+                                <span class="btn-inner--text">Twitter</span>
+                            </a>
+                        }
+                    </div>
+                </div>*@
+                <div class="card-body px-lg-5 py-lg-5">
+                    @*<div class="text-center text-muted mb-4">
+            <small>Or sign up with credentials</small>
+        </div>*@
+                    <div class="text-center text-muted mb-4">
+                        <small>Sign up now for free</small>
+                    </div>
+                    @using (Html.BeginForm("Register", "Account", new { returnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
+                    {
+                        <div class="form-group mb-3">
+                            <div class="input-group input-group-alternative">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="ni ni-circle-08"></i></span>
+                                </div>
+                                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", type = "name", placeholder = "Username" })
+                            </div>
+                            @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "validation-error text-danger" })
+                        </div>
+                        <div class="form-group mb-3">
+                            <div class="input-group input-group-alternative">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="ni ni-circle-08"></i></span>
+                                </div>
+                                @Html.TextBoxFor(m => m.Name, new { @class = "form-control", type = "name", placeholder = "Name" })
+                            </div>
+                            @Html.ValidationMessageFor(m => m.Name, "", new { @class = "validation-error text-danger" })
+                        </div>
+                        <div class="form-group mb-3">
+                            <div class="input-group input-group-alternative">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                                </div>
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", type = "email", placeholder = "Email" })
+                            </div>
+                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "validation-error text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group input-group-alternative">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                                </div>
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control", type = "password", placeholder = "Password" })
+                            </div>
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "validation-error text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group input-group-alternative">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                                </div>
+                                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", type = "password", placeholder = "Confirm Password" })
+                            </div>
+                            @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "validation-error text-danger" })
+                        </div>
+                        <div class="row my-4">
+                            <div class="col-12">
+                                <div class="custom-control custom-control-alternative custom-checkbox">
+                                    @Html.CheckBoxFor(m => m.IsAgreed, new { @class = "custom-control-input", id = "agreedCheckbox" })
+                                    <label class="custom-control-label" for="agreedCheckbox">
+                                        <span class="text-muted">I agree with the <a href="@Url.Action("Policy", "Home")">Privacy Policy</a> & <a href="@Url.Action("Terms", "Home")">Terms of Service</a></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        @Html.ValidationSummary(true, "", new { @class = "validation-error text-danger" })
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary my-4">Create account</button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

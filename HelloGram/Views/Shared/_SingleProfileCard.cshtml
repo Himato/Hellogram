@@ -1,0 +1,107 @@
+﻿@model HelloGram.Core.ViewModels.UserViewModel
+<div class="card shadow js-profile-container" data-user-id="@Model.Id">
+    <div class="row justify-content-center">
+        <div class="col-lg-3 order-lg-2">
+            @if (Model.IsOther)
+            {
+                <div class="card-profile-image">
+                    <img src="/Content/Images/Users/@Model.Image" class="rounded-circle" alt="Profile Image" data-action="zoom">
+                </div>
+            }
+            else
+            {
+                <div class="card-profile-image fixed" data-toggle="modal" data-target="#image-upload-modal">
+                    <a href="javascript:void(0);">
+                        <img src="/Content/Images/Users/@Model.Image" class="rounded-circle" alt="Profile Image">
+                        <div class="card-profile-image-middle text-center text-black h-100">
+                            <i class="fas fa-camera fa-3x"></i>
+                            <span class="d-block">Change</span>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+        @if (Model.IsOther)
+            {
+            <div class="d-flex justify-content-between">
+                <a href="javascript:void(0);" class="btn btn-sm@(Model.IsFollowing ? " btn-neutral" : " btn-primary px-3") js-card-follow">@(Model.IsFollowing ? "Unfollow" : "Follow")</a>
+                <a href="@Url.Action("Chat", "Messenger", new { username = Model.Username })" class="btn btn-sm btn-default float-right">Message</a>
+            </div>
+        }
+    </div>
+    <div class="card-body pt-0 pt-md-4">
+        <div class="row">
+            <div class="col">
+                <div class="card-profile-stats d-flex justify-content-center mt-md-5">
+                    <div>
+                        <span class="heading js-followers-number">@Model.NumberOfFollowers</span>
+                        <span class="description">Followers</span>
+                    </div>
+                    <div>
+                        <span class="heading">@Model.NumberOfPosts</span>
+                        <span class="description">Posts</span>
+                    </div>
+                    <div>
+                        <span class="heading">@Model.NumberOfFollowings</span>
+                        <span class="description">Followings</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center">
+            <h3>
+                @Model.Name<span class="font-weight-light">@(!string.IsNullOrEmpty(Model.Birthday) ? ", " + Model.GetAge() : "")</span>
+            </h3>
+            @if (!string.IsNullOrEmpty(Model.City) || !string.IsNullOrEmpty(Model.Country))
+            {
+                <div class="h5 font-weight-300">
+                    <i class="ni mr-2"></i>@(string.IsNullOrEmpty(Model.City) ? Model.Country :
+                                            string.IsNullOrEmpty(Model.Country) ? Model.Country :
+                                                Model.City + ", " + Model.Country)
+                </div>
+            }
+            @if (!string.IsNullOrEmpty(Model.Company) || !string.IsNullOrEmpty(Model.Position))
+            {
+                <div class="mt-4">
+                    <i class="ni mr-2"></i>@(string.IsNullOrEmpty(Model.Company) ? "Works as " + Model.Position :
+                                            string.IsNullOrEmpty(Model.Position) ? "Works at " + Model.Company :
+                                                Model.Position + " at " + Model.Company)
+                </div>
+            }
+            @if (!string.IsNullOrEmpty(Model.University))
+            {
+                <div class="h5 mt-2">
+                    <i class="ni mr-2"></i>Studied at @Model.University
+                </div>
+            }
+            @if (!string.IsNullOrEmpty(Model.About))
+            {
+                <hr class="my-4" />
+                <p>
+                    @Model.About <a href="@Url.Action("UsersProfile", "Users", new {username = Model.Username})" target="_blank">View Profile</a>
+                </p>
+            }
+            else
+            {
+                <p>
+                    <a href="@Url.Action("UsersProfile", "Users", new {username = Model.Username})" target="_blank">View Profile</a>
+                </p>
+            }
+            @if (!string.IsNullOrEmpty(Model.FacebookLink))
+            {
+                <a href="@Model.FacebookLink" class="mr-2" target="_blank">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+            }
+            @if (!string.IsNullOrEmpty(Model.TwitterLink))
+            {
+                <a href="@Model.TwitterLink" target="_blank">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            }
+        </div>
+    </div>
+</div>
+@Html.Partial("~/Views/Shared/Modals/_ImageUploadModal.cshtml")

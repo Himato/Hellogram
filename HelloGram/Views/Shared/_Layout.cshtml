@@ -1,0 +1,34 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>
+        Hellogram - @ViewBag.Title
+    </title>
+    <!-- Favicon -->
+    <link href="/Content/Images/hellogram_logo.png" rel="icon" type="image/png">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+    <!-- Icons -->
+    <link href="/Content/assets/js/plugins/nucleo/css/nucleo.css" rel="stylesheet" />
+    <link href="/Content/assets/js/plugins/fontawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
+    <!-- CSS Files -->
+    <link href="/Content/assets/css/argon-dashboard.min.css?v=1.1.0" rel="stylesheet" />
+    <link href="/Content/Site.css" rel="stylesheet" />
+</head>
+
+<body class="bg-default">
+    @RenderBody()
+    @Html.Partial("~/Views/Shared/Modals/_UnderConstructionModal.cshtml")
+    <!--   Core   -->
+    <script src="/Content/assets/js/plugins/jquery/dist/jquery.min.js"></script>
+    <script src="/Content/assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!--   Argon JS   -->
+    <script src="/Content/assets/js/argon-dashboard.min.js?v=1.1.0"></script>
+    @RenderSection("scripts", required: false)
+</body>
+
+</html>

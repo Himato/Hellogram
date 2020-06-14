@@ -1,0 +1,10 @@
+﻿@model IEnumerable<HelloGram.Core.ViewModels.MemberViewModel>
+@{
+    ViewBag.Title = "People";
+    Layout = "_Tab.cshtml";
+}
+
+<!-- People -->
+<div id="people-container">
+    @Html.Partial("PeopleList", Model)
+</div>

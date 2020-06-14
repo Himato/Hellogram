@@ -1,0 +1,20 @@
+﻿@using HelloGram.Core.ViewModels
+@model HelloGram.Core.ViewModels.CategoryViewModel
+@{
+    ViewBag.Title = Model.Name;
+    Layout = "~/Views/Shared/_LoggedLayout.cshtml";
+}
+
+<!-- Header -->
+@Html.Partial("_HomeHeader")
+<!-- Page Content -->
+<div class="container-fluid mt--7">
+    <div class="col-xl-8 order-xl-1 mb-5 mb-xl-0">
+        <!-- Post -->
+        @foreach (var post in Model.PostViewModels)
+        {
+            @Html.Partial("_Post", post)
+        }
+        @Html.Partial("_PostBuffer", new PostBufferViewModel(Model.PostViewModels.Count))
+    </div>
+</div>

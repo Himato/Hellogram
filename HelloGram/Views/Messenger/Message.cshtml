@@ -1,0 +1,63 @@
+﻿@model List<HelloGram.Core.ViewModels.MessageViewModel>
+
+<div class="message@(Model[0].IsMine ? " message-right" : "")" data-username="@Model[0].SenderUsername">
+    <!-- Avatar -->
+    @if (Model[0].IsMine)
+    {
+        <div class="avatar avatar-sm ml-4 ml-lg-5" data-toggle="tooltip" data-placement="right" title="@Model[0].SenderName">
+            <img src="/Content/Images/Users/@Model[0].SenderImage" alt="@Model[0].SenderName">
+        </div>
+    }
+    else
+    {
+        <a class="avatar avatar-sm mr-4 mr-lg-5" href="#" data-chat-sidebar-toggle="#chat-details" data-toggle="tooltip" data-placement="left" title="@Model[0].SenderName">
+            <img src="/Content/Images/Users/@Model[0].SenderImage" alt="@Model[0].SenderName">
+        </a>
+    }
+    <div class="messages-body-container">
+        @foreach (var message in Model)
+        {
+            <div class="message-body">
+                <div class="message-content @(message.IsMine ? "bg-primary text-white" : "bg-light")@(message.IsImage ? " message-content-image" : "")" data-toggle="tooltip" data-placement="top" title="@message.ToolTip" data-sent-time="@message.GetFormattedSentDate()" data-message-id="@message.Id" data-message-seen="@message.Seen.ToString().ToLower()">
+                    @if (!message.IsDeleted)
+                    {
+                        if (message.IsFile)
+                        {
+                            if (message.IsImage)
+                            {
+                                <div class="media">
+                                    <img class="chat-image" src="/Content/Messenger/Attachments/@message.Attachment" alt="@message.Content" data-action="zoom" />
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="media">
+                                    <a href="/Content/Messenger/Attachments/@message.Attachment" target="_blank" class="icon-shape mr-5" download="@message.Content">
+                                        <i class="fe-paperclip"></i>
+                                    </a>
+                                    <div class="media-body overflow-hidden flex-fill">
+                                        <a href="/Content/Messenger/Attachments/@message.Attachment" class="d-block text-truncate font-medium text-reset">@message.Content</a>
+                                        <p class="small">@message.AttachmentSize</p>
+                                    </div>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <p>@message.Content</p>
+                        }
+                    }
+                    else
+                    {
+                        <p class="font-italic">This message has been removed</p>
+                    }
+                </div>
+
+                <div class="message-footer pt-0 mx-1 hide">
+                    <small class="text-muted"><i class="fe-eye fa-1x" data-toggle="tooltip" data-placement="top" title="Seen"></i></small>
+                </div>
+    
+            </div>
+        }
+    </div>
+</div>

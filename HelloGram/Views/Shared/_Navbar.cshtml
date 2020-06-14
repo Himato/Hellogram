@@ -1,0 +1,24 @@
+﻿@model HelloGram.Core.ViewModels.UserViewModel
+
+<nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
+    <div class="container-fluid">
+        <!-- Brand -->
+        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="#">@ViewBag.Title</a>
+        <!-- Form -->
+        <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto" action="@Url.Action("Search", "Home")">
+            <a class="btn btn-neutral btn-rounded mr-3 d-none d-xl-block" href="#" data-toggle="modal" data-target="#new-post-modal">
+                <i class="fas fa-plus"></i> New Post
+            </a>
+            <div class="form-group mb-0">
+                <div class="input-group input-group-alternative">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-search"></i></span>
+                    </div>
+                    <input class="form-control" placeholder="Search" type="text" name="q" autocomplete="off">
+                </div>
+            </div>
+        </form>
+        <!-- User -->
+        @Html.Partial("_NavbarUser", Model)
+    </div>
+</nav>
