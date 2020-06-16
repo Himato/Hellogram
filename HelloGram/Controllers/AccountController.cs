@@ -79,17 +79,19 @@ namespace HelloGram.Controllers
 
             // Require the user to have a confirmed email before they can log on.
             var user = await UserManager.FindByEmailAsync(model.Email);
-            if (user != null)
-            {
-                if (!await UserManager.IsEmailConfirmedAsync(user.Id))
-                {
-                    var callbackUrl = await SendEmailConfirmationTokenAsync(user.Id);
 
-                    ViewBag.ErrorMessage = "Please, verify your email first."
-                                           + "\nThe confirmation token has been resent to your email account.";
-                    return View("Error");
-                }
-            }
+            // Uncomment when using a secure domain
+            //if (user != null)
+            //{
+            //    if (!await UserManager.IsEmailConfirmedAsync(user.Id))
+            //    {
+            //        var callbackUrl = await SendEmailConfirmationTokenAsync(user.Id);
+
+            //        ViewBag.ErrorMessage = "Please, verify your email first."
+            //                               + "\nThe confirmation token has been resent to your email account.";
+            //        return View("Error");
+            //    }
+            //}
 
             if (user == null)
             {
@@ -149,14 +151,19 @@ namespace HelloGram.Controllers
 
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
-                    var callbackUrl = await SendEmailConfirmationTokenAsync(user.Id);
+                    //var callbackUrl = await SendEmailConfirmationTokenAsync(user.Id);
 
                     // Uncomment to debug locally 
                     // TempData["ViewBagLink"] = callbackUrl;
 
-                    ViewBag.Title = "Email Verification";
-                    ViewBag.Message = "Check your email and confirm your account, you must be confirmed before you can log in."
-                                        + "\nOr Log in if the message has not been sent for resending it.";
+                    // Uncomment when using a secure domain
+
+                    //ViewBag.Title = "Email Verification";
+                    //ViewBag.Message = "Check your email and confirm your account, you must be confirmed before you can log in."
+                    //                    + "\nOr Log in if the message has not been sent for resending it.";
+
+                    ViewBag.Title = "Account Has Been Created";
+                    ViewBag.Message = "You can log in now with your account";
 
                     //ViewBag.Title = "Registration Succeed";
                     //ViewBag.Message = "We've created your account successfully, and you can login now.";
@@ -218,10 +225,14 @@ namespace HelloGram.Controllers
 
                 // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                 // Send an email with this link
-                var callbackUrl = await SendEmailResetTokenAsync(user.Id);
+                // Uncomment when using a secure domain
+                //var callbackUrl = await SendEmailResetTokenAsync(user.Id);
 
-                ViewBag.Title = "Email Verification";
-                ViewBag.Message = "Please, check your email to reset your password.";
+                //ViewBag.Title = "Email Verification";
+                //ViewBag.Message = "Please, check your email to reset your password.";
+
+                ViewBag.Title = "Demo Feature";
+                ViewBag.Message = "Unfortunately, this feature is not currently supported due to the insecure domain.";
 
                 return View("Info");
             }
