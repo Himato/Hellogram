@@ -97,7 +97,7 @@ namespace HelloGram.Persistence.Repositories
 
         public Status GetViewsStatus()
         {
-            var list = _context.Logins.Select(l => l.Count);
+            var list = _context.Logins.Select(l => l.Count).ToList();
 
             var newNumber = list.Sum();
 
