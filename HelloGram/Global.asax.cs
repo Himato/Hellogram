@@ -50,7 +50,7 @@ namespace HelloGram
                 case 500:
                 // server error
                 default:
-                    Response.Redirect("~/Error");
+                    Response.Redirect($"~/Error?q={exception.Message}");
                     break;
             }
         }

@@ -460,6 +460,9 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Images\Users\*" />
+    <Content Include="Content\Images\Posts\*" />
+    <Content Include="Content\Messenger\Attachments\*" />
     <Content Include="Content\assets\css\argon-dashboard.css" />
     <Content Include="Content\assets\css\argon-dashboard.min.css" />
     <Content Include="Content\bootstrap-grid.css" />
@@ -2447,6 +2450,7 @@
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
     <Content Include="Scripts\esm\popper-utils.js.map" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\hellogram - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -2571,7 +2575,7 @@
     <Content Include="Views\Messenger\Message.cshtml" />
     <Content Include="Views\Messenger\File.cshtml" />
     <Content Include="Views\Messenger\PeopleList.cshtml" />
-    <None Include="Views\Messenger\_MessengerLayout.cshtml" />
+    <Content Include="Views\Messenger\_MessengerLayout.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

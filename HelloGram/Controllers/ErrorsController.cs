@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 namespace HelloGram.Controllers
 {
@@ -13,19 +9,25 @@ namespace HelloGram.Controllers
         [Route("~/NotFound")]
         public ActionResult NotFound()
         {
-            const int statusCode = (int)System.Net.HttpStatusCode.NotFound;
-            Response.StatusCode = statusCode;
+            const int statusCode = (int) System.Net.HttpStatusCode.NotFound;
+
+            Response.StatusCode             = statusCode;
             Response.TrySkipIisCustomErrors = true;
-            HttpContext.Response.StatusCode = statusCode;
+
+            HttpContext.Response.StatusCode             = statusCode;
             HttpContext.Response.TrySkipIisCustomErrors = true;
+
             return PartialView();
         }
 
         [Route("~/Error")]
-        public ActionResult Error()
+        public ActionResult Error(string q = null)
         {
-            Response.StatusCode = (int)System.Net.HttpStatusCode.InternalServerError;
+            Response.StatusCode             = (int) System.Net.HttpStatusCode.InternalServerError;
             Response.TrySkipIisCustomErrors = true;
+
+            ViewBag.Message = q;
+
             return View();
         }
     }
